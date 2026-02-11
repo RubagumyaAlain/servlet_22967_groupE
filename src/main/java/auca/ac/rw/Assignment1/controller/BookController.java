@@ -16,6 +16,7 @@ public class BookController {
             new Book(2L, "Effective Java", "Joshua Bloch", "978-0134685991", 2018),
             new Book(3L, "Rich Dad Poor Dad", "Robert Kiyosaki", "978-1612680194", 1997)
     ));
+    private long nextId = 4;
     @GetMapping
     public List<Book> getAll() {
         return books;
@@ -31,7 +32,11 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public List<Book> searchByTitle(@RequestParam String title) {
+    public List<Book> searchByTitle(@RequestParam(name = "title", required = false) String title) {
+        // Accept missing or blank title instead of throwing 400
+        if (title == null || title.isBlank()) {
+            return books;
+        }
         String term = title.toLowerCase();
         List<Book> matches = new ArrayList<>();
         for (Book book : books) {
@@ -45,8 +50,12 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Book> create(@RequestBody Book book) {
-        
-        if (findById(book.getId()) != null) {
+        if (book == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (book.getId() == null) {
+            book.setId(nextId++); // auto-assign when client omits id
+        } else if (findById(book.getId()) != null) {
             return ResponseEntity.status(409).build();
         }
         books.add(book);
@@ -64,8 +73,11 @@ public class BookController {
     }
 
     private Book findById(Long id) {
+        if (id == null) {
+            return null;
+        }
         for (Book book : books) {
-            if (book.getId() == id) {
+            if (id.equals(book.getId())) {
                 return book;
             }
         }
