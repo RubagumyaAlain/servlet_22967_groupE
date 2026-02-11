@@ -16,6 +16,7 @@ public MenuItem (Long id, String name, String description, Double price, String 
     this.description = description;
     this.price = price;
     this.category = category;
+    this.available = available;
 }
 
 public void setId (Long id){

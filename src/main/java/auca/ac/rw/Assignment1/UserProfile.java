@@ -2,7 +2,7 @@ package auca.ac.rw.Assignment1;
 
 public class UserProfile {
     Long userId;
-    String userName;
+    String username;
     String email;
     String fullName;
     int age;
@@ -12,6 +12,17 @@ public class UserProfile {
 
     public UserProfile(){}
 
+    public UserProfile(Long userId, String username, String email, String fullName, int age, String country, String bio, boolean active) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.fullName = fullName;
+        this.age = age;
+        this.country = country;
+        this.bio = bio;
+        this.active = active;
+    }
+
     public void setUserId(Long userId){
         this.userId = userId;
     }
@@ -19,11 +30,11 @@ public class UserProfile {
         return userId;
     }
 
-    public void setUserName(String username){
-        this.userName = username;
+    public void setUsername(String username){
+        this.username = username;
     }
-    public String getUserName(){
-        return userName;
+    public String getUsername(){
+        return username;
     }
 
     public void setEmail(String email){
@@ -36,7 +47,7 @@ public class UserProfile {
     public void setFullName(String fullName){
         this.fullName = fullName;
     }
-    public String getfullName(){
+    public String getFullName(){
         return fullName;
     }
 

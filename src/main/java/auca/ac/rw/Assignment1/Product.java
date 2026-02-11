@@ -12,6 +12,16 @@ public class Product {
 
     public Product() { }
 
+    public Product(Long productId, String name, String description, Double price, String category, int stockQuantity, String brand) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.stockQuantity = stockQuantity;
+        this.brand = brand;
+    }
+
     public void setProductId(Long productId){
         this.productId = productId;
     }
@@ -28,7 +38,7 @@ public class Product {
         return name;
     }
 
-    public void setProductId(String description){
+    public void setDescription(String description){
         this.description = description;
     }
 

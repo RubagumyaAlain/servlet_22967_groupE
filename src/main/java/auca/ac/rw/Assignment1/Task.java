@@ -11,6 +11,15 @@ public class Task {
 
     public Task(){ }
 
+    public Task(Long taskId, String title, String description, boolean completed, String priority, String dueDate){
+        this.taskId = taskId;
+        this.title = title;
+        this.description = description;
+        this.completed = completed;
+        this.priority = priority;
+        this.dueDate = dueDate;
+    }
+
     public void setTaskId(Long taskId){
         this.taskId = taskId;
     }
@@ -53,5 +62,4 @@ public class Task {
     public String getDueDate(){
         return dueDate;
     }
-
 }

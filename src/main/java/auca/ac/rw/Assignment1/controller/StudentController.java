@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
@@ -22,11 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class StudentController {
     private final List<Student> students = new ArrayList<>(List.of(
-            new Student(22967L, "RUBAGUMYA", "Alain", "rubagumyaalain@gmail.com", "Software Engineering", 17.2),
-            new Student(23232L, "Hirwa", "Arsene", "hirwaarsene@gmail.com", "Information&Technology", 13.2),
-            new Student(23244L, "Muhire", "Cedrick", "muhirecedrick@gmail.com", "Networking", 14.0)
+            new Student(1001L, "Alice", "Jones", "alice@example.com", "Computer Science", 3.9),
+            new Student(1002L, "Bob", "Smith", "bob@example.com", "Information Technology", 3.4),
+            new Student(1003L, "Carol", "Lee", "carol@example.com", "Computer Science", 3.6),
+            new Student(1004L, "David", "Kim", "david@example.com", "Networking", 3.2),
+            new Student(1005L, "Eva", "Garcia", "eva@example.com", "Software Engineering", 3.8)
     ));
-    private long nextId = 30000L;
+    private long nextId = 2000L;
 
     @GetMapping("/students")
     public ResponseEntity<List<Student>> listStudents() {
@@ -60,5 +64,52 @@ public class StudentController {
         }
         students.add(newStudent);
         return ResponseEntity.created(URI.create("/api/students/" + newStudent.getStudentId())).body(newStudent);
+   }
+
+   @GetMapping("/students/major/{major}")
+   public List<Student> getByMajor(@PathVariable String major){
+        List<Student> matches = new ArrayList<>();
+        if (major == null || major.isBlank()){
+            return matches;
+        }
+        String desired = major.toLowerCase();
+        for(Student student : students){
+            String m = student.getMajor();
+            if (m != null && m.toLowerCase().equals(desired)){
+                matches.add(student);
+            }
+        }
+        return matches;
+   }
+
+   @GetMapping("/students/filter")
+   public List<Student> filterByGpa(@RequestParam(name = "gpa", required = false) Double minGpa){
+        double threshold = minGpa == null ? 0.0 : minGpa;
+        List<Student> matches = new ArrayList<>();
+        for(Student student : students){
+            Double gpa = student.getGpa();
+            if (gpa != null && gpa >= threshold){
+                matches.add(student);
+            }
+        }
+        return matches;
+   }
+
+   @PutMapping("/students/{studentId}")
+   public ResponseEntity<Student> updateStudent(@PathVariable Long studentId, @RequestBody Student updated){
+        Student existing = findById(studentId);
+        if (existing == null){
+            return ResponseEntity.notFound().build();
+        }
+        if (updated == null){
+            return ResponseEntity.badRequest().build();
+        }
+        existing.setStudentId(studentId);
+        existing.setFirstName(updated.getFirstName());
+        existing.setLastName(updated.getLastName());
+        existing.setEmail(updated.getEmail());
+        existing.setMajor(updated.getMajor());
+        existing.setGpa(updated.getGpa());
+        return ResponseEntity.ok(existing);
    }
 }
