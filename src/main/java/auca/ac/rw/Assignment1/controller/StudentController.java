@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 public class StudentController {
     private final List<Student> students = new ArrayList<>(List.of(
-            new Student(1001L, "Alice", "Jones", "alice@example.com", "Computer Science", 3.9),
-            new Student(1002L, "Bob", "Smith", "bob@example.com", "Information Technology", 3.4),
-            new Student(1003L, "Carol", "Lee", "carol@example.com", "Computer Science", 3.6),
-            new Student(1004L, "David", "Kim", "david@example.com", "Networking", 3.2),
-            new Student(1005L, "Eva", "Garcia", "eva@example.com", "Software Engineering", 3.8)
+            new Student(1001L, "Alice", "Jones", "alice@gmail.com", "Computer Science", 3.9),
+            new Student(1002L, "Bob", "Smith", "bob@gmail.com", "Information Technology", 3.4),
+            new Student(1003L, "Carol", "Lee", "carol@gmail.com", "Computer Science", 3.6),
+            new Student(1004L, "David", "Kim", "david@gmail.com", "Networking", 3.2),
+            new Student(1005L, "Eva", "Garcia", "eva@gmail.com", "Software Engineering", 3.8)
     ));
     private long nextId = 2000L;
 

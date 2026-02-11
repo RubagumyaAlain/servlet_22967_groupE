@@ -14,11 +14,11 @@ import java.util.List;
 public class UserProfileController {
 
     private final List<UserProfile> users = new ArrayList<>(List.of(
-            new UserProfile(1L, "john_doe", "john@example.com", "John Doe", 28, "USA", "Love coding", true),
-            new UserProfile(2L, "jane_smith", "jane@example.com", "Jane Smith", 31, "Canada", "Traveler and photographer", false),
-            new UserProfile(3L, "alex_k", "alex@example.com", "Alex Kim", 24, "South Korea", "Backend dev", true),
-            new UserProfile(4L, "maria_g", "maria@example.com", "Maria Garcia", 35, "Spain", "Product manager", true),
-            new UserProfile(5L, "li_wei", "liwei@example.com", "Li Wei", 27, "China", "UI designer", false)
+            new UserProfile(1L, "john_doe", "john@gmail.com", "John Doe", 28, "USA", "Love coding", true),
+            new UserProfile(2L, "jane_smith", "jane@gmail.com", "Jane Smith", 31, "Canada", "Traveler and photographer", false),
+            new UserProfile(3L, "alex_k", "alex@gmail.com", "Alex Kim", 24, "South Korea", "Backend dev", true),
+            new UserProfile(4L, "maria_g", "maria@gmail.com", "Maria Garcia", 35, "Spain", "Product manager", true),
+            new UserProfile(5L, "li_wei", "liwei@gmail.com", "Li Wei", 27, "China", "UI designer", false)
     ));
     private long nextId = 6L;
 
@@ -33,6 +33,7 @@ public class UserProfileController {
         if (found == null) {
             return ResponseEntity.status(404).body(new ApiResponse<>(false, "User not found", null));
         }
+
         return ResponseEntity.ok(new ApiResponse<>(true, "User found", found));
     }
 
