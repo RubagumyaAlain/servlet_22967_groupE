@@ -17,7 +17,6 @@ public class MenuController {
             new MenuItem(3L, "Chocolate Cake", "Rich dark chocolate slice", 6.00, "Dessert", false)
     ));
     private long nextId = 4L;
-
     @GetMapping
     public List<MenuItem> getAllMenuItems() {
         return menuItems;
